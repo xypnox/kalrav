@@ -6,9 +6,14 @@ function Home() {
   return (
     <div className="home">
       <header>
-        <h1>Kalrav</h1>
-        <h2>A tweet app</h2>
-        {/* <Link to="/app" component={}>Get Started</Link> */}
+        <div className="intro">
+          <h1>Kalrav</h1>
+          <h2>A tweet app</h2>
+          {/* <Link to="/login" component={}>Get Started</Link> */}
+        </div>
+        <div className="know-more">
+          <p>Know More</p>
+        </div>
       </header>
 
       <Features />

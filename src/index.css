@@ -21,6 +21,10 @@ code {
 }
 
 .home header {
+  display: flex;
+  align-content: space-between;
+  flex-direction: column;
+  height: 100vh;
   margin: 5rem;
 }
 
