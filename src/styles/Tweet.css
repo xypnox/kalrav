@@ -1,0 +1,8 @@
+.Tweet {
+  margin: 3rem 0;
+}
+
+.Tweet .tweetActions button {
+  background-color: #fff;
+  border: none;
+}

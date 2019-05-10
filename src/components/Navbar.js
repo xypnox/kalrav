@@ -1,20 +1,36 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import '../styles/Navbar.css';
 
-function Navbar() {
+function Navbar({ status }) {
+  console.log(status);
+  const linkList =
+    status === 'Logged'
+      ? [
+          <li className="appName">
+            <Link to="/feed">Kalrav</Link>
+          </li>,
+          <li>
+            <Link to="/settings">Settings</Link>
+          </li>,
+          <li>
+            <Link to="/tweet">Tweet</Link>
+          </li>,
+          <li>
+            <Link to="/about">About</Link>
+          </li>,
+        ]
+      : [
+          <li className="appName">
+            <Link to="/">Kalrav</Link>
+          </li>,
+          <li>
+            <Link to="/about">About</Link>
+          </li>,
+        ];
   return (
     <nav className="navbar">
-      <a href="/" className="appName">
-        Kalrav
-      </a>
-
-      <ul className="Navlinks">
-        <li>
-          <a href="/tweet">Tweet</a>
-        </li>
-        <li>
-          <a href="/settings">Settings</a>
-        </li>
-      </ul>
+      <ul className="Navlinks">{linkList}</ul>
     </nav>
   );
 }

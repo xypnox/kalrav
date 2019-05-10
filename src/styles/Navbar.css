@@ -1,0 +1,38 @@
+.navbar {
+  margin: 3rem auto 0rem;
+  padding: 1rem 0;
+}
+
+.navbar .appName a {
+  display: inline-block;
+  text-decoration: none;
+  color: #0085ff;
+  font-weight: bolder;
+  font-size: 32px;
+  padding: 0;
+}
+
+.navbar .appName {
+  float: left;
+}
+
+.navbar ul {
+  list-style: none;
+  display: block;
+  padding: 0;
+}
+
+.navbar ul li {
+  float: right;
+}
+
+.navbar ul li a {
+  padding-left: 2rem;
+  font-size: 18px;
+  text-decoration: none;
+  color: #757575;
+}
+
+.navbar ul li a:hover {
+  color: #0085ff;
+}

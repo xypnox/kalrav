@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-// import Link from 'react-router-dom';
 import Navbar from './Navbar';
+import '../styles/Login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -24,18 +24,23 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="login-form">
-        <Navbar />
-        <h1>Login</h1>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="username">Username</label>
-          <input type="text" id="username" onChange={this.handleChange} />
+      <div className="login">
+        <div className="container">
+          <Navbar />
+          <h1>Login</h1>
+          <form onSubmit={this.handleSubmit}>
+            <input id="username" onChange={this.handleChange} type="text" placeholder="Username" />
 
-          <label htmlFor="username">Password</label>
-          <input id="password" onChange={this.handleChange} type="password" />
+            <input
+              id="password"
+              onChange={this.handleChange}
+              type="password"
+              placeholder="Password"
+            />
 
-          <button>Submit</button>
-        </form>
+            <button className="action-button">Submit</button>
+          </form>
+        </div>
       </div>
     );
   }

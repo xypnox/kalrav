@@ -1,0 +1,26 @@
+.tweetbtn {
+  max-width: 600px;
+  margin: 5rem auto;
+  color: #787878;
+  font-size: inherit;
+
+  padding: 12px 32px;
+  border-radius: 100rem;
+  /* margin: 1.5rem 0rem; */
+  border: 2px solid #dbdbdb;
+  background-color: #f2f2f2;
+
+}
+
+.tweetbtn img, .tweetbtn p {
+  margin: 0;
+  padding: 0 10px;
+  display: inline-block;
+}
+
+.tweetbtn img {
+  color: #787878;
+  height: 30px;
+  width: auto;
+  vertical-align: top;
+}
