@@ -7,6 +7,7 @@ class TweetBtn extends Component {
     super(props);
     this.state = {
       isActive: false,
+      content: null,
     };
   }
 
@@ -16,7 +17,14 @@ class TweetBtn extends Component {
     });
   };
 
+  handleChange = e => {
+    this.setState({
+      content: e.target.value,
+    });
+  };
+
   handleSubmit = () => {
+    this.props.addTweet({ content: this.state.content });
     this.setState({
       isActive: false,
     });
@@ -28,7 +36,12 @@ class TweetBtn extends Component {
         <div className="tweetbtn active">
           <i className="icon-vector-pencil" />
           <form onSubmit={this.handleSubmit}>
-            <textarea rows="5" placeholder="Tweet Something?" autoFocus />
+            <textarea
+              rows="5"
+              placeholder="Tweet Something?"
+              autoFocus
+              onChange={this.handleChange}
+            />
             <button type="submit" className="action-button">
               Tweet
             </button>

@@ -33,9 +33,13 @@
   padding-left: 2rem;
   font-size: 18px;
   text-decoration: none;
-  color: #757575;
+  color: #8EA9C2;
 }
 
 .navbar ul li a:hover {
-  color: #0085ff;
+  color: #5C748A;
+}
+
+.navbar ul li a:active {
+  color: #00D382;
 }
