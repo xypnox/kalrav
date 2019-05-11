@@ -38,18 +38,6 @@ class TweetFeed extends Component {
     );
     return <div className="TweetFeed">{tweetList}</div>;
   }
-  // const tweetList = tweets.length ? (
-  //   tweets.map(tweet => {
-  //     return (
-  //       <div className="tweet">
-  //         <div className="author">{tweet.author}</div>
-  //         <div className="author">{tweet.content}</div>
-  //       </div>
-  //     );
-  //   })
-  // ) : (
-  //   <p> Loading Tweets </p>
-  // );
 }
 
 export default TweetFeed;
