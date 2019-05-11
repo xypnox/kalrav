@@ -1,3 +1,16 @@
+# Kalrav
+
+### _A tweet App_
+
+# Problem
+## Twitter isnt the same anymore!
+
+When Twitter started its humble beginnings, it was just a simple app to compose tweets of 140 characters. But as days went by, several new features ( or distractions ) were added to Twitter. With the increasing number of distractions such as Images, Links, Advertisemnts, etc. The vanilla Twitter experience faded. Gone were the witty, sharp and funny tweets.
+
+Kalrav is an attempt to restore Twitter back to it's glory days!
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
