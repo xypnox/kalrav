@@ -16,9 +16,28 @@
   background-color: #fff;
   color: #dbdbdb;
   border: none;
+  transition: all 0.5s;
   font-size: 20px;
 }
 
 .Tweet .tweetActions button:hover {
+  transform: scale(1.4);
   color: #737373;
+}
+
+.Tweet .tweetActions button.isLiked {
+  color: #FF364E;
+}
+
+.Tweet .tweetActions button.isReply {
+  color: #0085ff;
+}
+
+.Tweet .tweetActions button.isRetweet {
+  color: #00D382;
+}
+
+
+.Tweet .tweetbtn {
+  margin: 0.5rem;
 }

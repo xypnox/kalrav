@@ -55,10 +55,14 @@ class TweetBtn extends Component {
     return (
       <div className="tweetbtn" onClick={this.handleClick}>
         <i className="icon-vector-pencil" />
-        <p>Tweet Something?</p>
+        <p>{this.props.placeholder}</p>
       </div>
     );
   }
 }
+
+TweetBtn.defaultProps = {
+  placeholder: 'Tweet Something ?',
+};
 
 export default TweetBtn;
