@@ -20,7 +20,10 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
+    console.log(this.state, this.props);
+    if (this.state.username !== null && this.state.password !== null) {
+      this.props.history.push('/feed');
+    }
   };
 
   render() {
@@ -39,7 +42,7 @@ class Login extends Component {
               placeholder="Password"
             />
 
-            <button type="button" className="action-button">
+            <button type="submit" className="action-button">
               Login via <i className="icon-twitter" />
             </button>
           </form>
