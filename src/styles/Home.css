@@ -11,6 +11,9 @@
 }
 
 .home header h1 {
+  background: -webkit-linear-gradient(45deg, #0085ff, #00d382);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   font-size: 5rem;
   margin-bottom: 0rem;
 }
@@ -41,4 +44,25 @@
 .know-more{
   text-align: center;
   color: #787878;
+}
+
+.know-more p {
+  margin: 0;
+  padding: 0;
+}
+
+
+.problems {
+  margin: 10rem 0;
+  color: #5C748A;
+  text-align: center;
+}
+
+.problems h2 {
+  color: #33404C;
+}
+
+.problems p {
+  max-width: 800px;
+  margin: 2rem auto;
 }

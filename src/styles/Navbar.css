@@ -6,10 +6,13 @@
 .navbar .appName a {
   display: inline-block;
   text-decoration: none;
-  color: #0085ff;
+  /* color: #0085ff; */
   font-weight: bolder;
   font-size: 32px;
   padding: 0;
+  background: -webkit-linear-gradient(45deg, #0085ff, #00d382);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .navbar .appName {
