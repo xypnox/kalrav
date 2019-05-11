@@ -42,6 +42,7 @@ function Home() {
 
       <Features />
       <div className="btn-below">
+        <h1> What are you waiting for? </h1>
         <Link to="/login" className="action-button">
           Get Started
         </Link>

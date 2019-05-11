@@ -11,7 +11,7 @@ Kalrav is an attempt to restore Twitter back to it's glory days!
 
 # Note
 
-This app is currently in development and only the frontend has been done. Contributions are welcome.
+This app is currently in development and only the frontend is usable. Contributions are welcome.
 
 
 # Run Locally

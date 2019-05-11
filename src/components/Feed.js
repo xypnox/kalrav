@@ -17,11 +17,11 @@ class Feed extends Component {
   componentDidMount() {
     axios.get('https://jsonplaceholder.typicode.com/posts').then(res => {
       this.setState({
-        posts: res.data.map(post => {
+        posts: res.data.map(tweet => {
           return {
-            id: post.id,
-            content: post.body,
-            author: post.title,
+            id: tweet.id,
+            content: tweet.body,
+            author: tweet.title,
           };
         }),
       });
@@ -29,8 +29,9 @@ class Feed extends Component {
   }
 
   addTweet = tweet => {
-    tweet.author = 'ramesh';
+    tweet.author = this.props.user.username;
     tweet.id = Math.random();
+    console.log(tweet);
     const { posts } = this.state;
     const postNew = posts.length ? [tweet, ...posts] : posts;
     this.setState({
@@ -41,7 +42,11 @@ class Feed extends Component {
   render() {
     return (
       <div className="feed container">
-        <Navbar status="Logged" />
+        <Navbar
+          user={this.props.user}
+          logoutUser={this.props.logoutUser}
+          history={this.props.history}
+        />
         <Tweetbtn addTweet={this.addTweet} />
         <TweetFeed posts={this.state.posts} />
       </div>

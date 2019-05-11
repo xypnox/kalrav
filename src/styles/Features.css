@@ -1,0 +1,37 @@
+.features {
+  background-image: url('../images/back.svg');
+  background-size: contain;
+  /* background-position-x: 10%;
+  background-position-y: 10%; */
+  background-repeat: no-repeat;
+  overflow: visible;
+}
+
+.features .featureSet {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.features .feature {
+  background-color: #fff;
+  box-shadow: 0px 10px 20px rgba(92, 116, 138, 0.5);
+  width: calc((1000px - 4rem*2 )/2);
+  padding: 2rem;
+  margin: 4rem 2rem;
+  border-radius: 2rem;
+  box-sizing: border-box;
+}
+
+.feature img {
+  padding: 1rem 3rem 3rem;
+}
+
+.feature h2{
+  margin: 0;
+  padding: 0;
+}
+
+.feature p {
+  margin: 0.5rem 0 2rem;
+}

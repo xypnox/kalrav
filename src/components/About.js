@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import Footer from './Footer';
 import Navbar from './Navbar';
 
-function About() {
+function About(props) {
   return (
     <div className="about container">
-      <Navbar />
+      <Navbar user={props.user} logoutUser={props.logoutUser} history={props.history} />
       <h1>About Us</h1>
       <p>
         When Twitter started its humble beginnings, it was just a simple app to compose tweets of

@@ -23,7 +23,8 @@ class TweetBtn extends Component {
     });
   };
 
-  handleSubmit = () => {
+  handleSubmit = e => {
+    e.preventDefault();
     if (this.state.content !== null) {
       this.props.addTweet({ content: this.state.content });
     }

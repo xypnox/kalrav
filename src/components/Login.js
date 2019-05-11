@@ -20,17 +20,22 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state, this.props);
+    // console.log(this.state, this.props);
     if (this.state.username !== null && this.state.password !== null) {
-      this.props.history.push('/feed');
+      this.props.loginUser(this.state).then(this.props.history.push('/feed'));
     }
   };
 
   render() {
+    // console.log(this.state, this.props);
     return (
       <div className="login">
         <div className="container">
-          <Navbar />
+          <Navbar
+            user={this.props.user}
+            logoutUser={this.props.logoutUser}
+            history={this.props.history}
+          />
           <h1>Login</h1>
           <form onSubmit={this.handleSubmit}>
             <input id="username" onChange={this.handleChange} type="text" placeholder="Username" />
