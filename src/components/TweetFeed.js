@@ -14,7 +14,6 @@ class TweetFeed extends Component {
 
   componentDidMount() {
     axios.get('https://jsonplaceholder.typicode.com/posts').then(res => {
-      console.log(res.data);
       this.setState({
         posts: res.data,
       });
@@ -24,6 +23,8 @@ class TweetFeed extends Component {
   render() {
     const tweetList = this.state.posts ? (
       this.state.posts.slice(0, 20).map(tweet => {
+        console.log(tweet);
+
         return (
           <Tweet
             id={tweet.id}

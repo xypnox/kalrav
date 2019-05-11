@@ -38,7 +38,9 @@ class Login extends Component {
               placeholder="Password"
             />
 
-            <button className="action-button">Submit</button>
+            <button type="button" className="action-button">
+              Login via <i className="icon-twitter" />
+            </button>
           </form>
         </div>
       </div>

@@ -2,7 +2,23 @@
   margin: 3rem 0;
 }
 
+.Tweet .author {
+  color: #737373;
+  font-size: 20px;
+}
+
+.Tweet .content {
+  font-size: 1.66rem;
+  padding: 0.75rem 0;
+}
+
 .Tweet .tweetActions button {
   background-color: #fff;
+  color: #dbdbdb;
   border: none;
+  font-size: 20px;
+}
+
+.Tweet .tweetActions button:hover {
+  color: #737373;
 }

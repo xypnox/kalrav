@@ -9,13 +9,13 @@ function Tweet({ id, author, content }) {
       <div className="content">{content}</div>
       <div className="tweetActions">
         <button type="button">
-          <img src={like} alt="Like" />
+          <i className="icon-heart" />
         </button>
         <button type="button">
-          <img src={retweet} alt="Retweet" />
+          <i className="icon-retweet-1" />
         </button>
         <button type="button">
-          <img src={reply} alt="Reply" />
+          <i className="icon-comment" />
         </button>
       </div>
     </div>
