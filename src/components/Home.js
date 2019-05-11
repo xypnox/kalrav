@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Features from './Features';
+import Footer from './Footer';
 import '../styles/Home.css';
 import reading from '../images/undraw_absorbed.svg';
 
@@ -40,6 +41,13 @@ function Home() {
       </div>
 
       <Features />
+      <div className="btn-below">
+        <Link to="/login" className="action-button">
+          Get Started
+        </Link>
+      </div>
+
+      <Footer />
     </div>
   );
 }

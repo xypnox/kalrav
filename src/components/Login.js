@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from './Navbar';
+import Footer from './Footer';
 import '../styles/Login.css';
 
 class Login extends Component {
@@ -42,6 +43,7 @@ class Login extends Component {
               Login via <i className="icon-twitter" />
             </button>
           </form>
+          <Footer />
         </div>
       </div>
     );

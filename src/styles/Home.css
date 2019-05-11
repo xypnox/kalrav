@@ -66,3 +66,8 @@
   max-width: 800px;
   margin: 2rem auto;
 }
+
+.home .btn-below {
+  text-align: center;
+  margin: 5rem 0 0;
+}

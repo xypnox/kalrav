@@ -1,0 +1,48 @@
+footer {
+  font-size: 24px;
+  margin: 12rem 0 4rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+footer .logo {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+footer .logo h1 {
+  font-size: 40px;
+  background: -webkit-linear-gradient(45deg, #0085ff, #00d382);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+  margin: 0;
+}
+
+footer .logo p {
+  margin: 0;
+}
+
+footer .footer-links {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  text-align: right;
+}
+
+footer .footer-links a {
+  margin: auto;
+  text-decoration: none;
+  color: #8EA9C2;
+  padding:  0 2rem;
+}
+
+footer .footer-links a:hover {
+  color: #5C748A;
+}
+
+footer .footer-links a:active {
+  color: #00D382;
+}
