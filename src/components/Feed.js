@@ -31,7 +31,7 @@ class Feed extends Component {
   addTweet = tweet => {
     tweet.author = this.props.user.username;
     tweet.id = Math.random();
-    console.log(tweet);
+    // console.log(tweet);
     const { posts } = this.state;
     const postNew = posts.length ? [tweet, ...posts] : posts;
     this.setState({

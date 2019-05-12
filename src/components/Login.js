@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import '../styles/Login.css';
@@ -28,6 +29,9 @@ class Login extends Component {
 
   render() {
     // console.log(this.state, this.props);
+    if (this.props.user) {
+      return <Redirect to="/feed" />;
+    }
     return (
       <div className="login">
         <div className="container">

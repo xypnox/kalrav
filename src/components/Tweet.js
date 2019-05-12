@@ -62,8 +62,8 @@ class Tweet extends Component {
     const replyBox = this.state.showReply ? (
       <TweetBtn placeholder="Reply to this tweet" addTweet={this.addTweet} />
     ) : (
-        <div />
-      );
+      <div />
+    );
     const likeClass = this.state.isLiked ? 'isLiked' : '';
     const replyClass = this.state.showReply ? 'isReply' : '';
     const retweetClass = this.state.isRetweet ? 'isRetweet' : '';
