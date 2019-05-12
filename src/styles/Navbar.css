@@ -29,17 +29,27 @@
   float: right;
 }
 
-.navbar ul li a {
-  padding-left: 2rem;
+.navbar ul li a,
+.navbar ul li button {
+  padding: 0  0 0 2rem;
   font-size: 18px;
   text-decoration: none;
   color: #8EA9C2;
 }
 
-.navbar ul li a:hover {
+
+.navbar ul li button {
+  border: none;
+  background: none;
+  font-weight: normal;
+}
+
+.navbar ul li a:hover,
+.navbar ul li button:hover {
   color: #5C748A;
 }
 
-.navbar ul li a:active {
+.navbar ul li a:active,
+.navbar ul li button:active  {
   color: #00D382;
 }

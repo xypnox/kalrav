@@ -53,6 +53,7 @@ class TweetBtn extends Component {
         </div>
       );
     }
+
     return (
       <div className="tweetbtn" onClick={this.handleClick}>
         <i className="icon-vector-pencil" />

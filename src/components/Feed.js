@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import Link from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from './Navbar';
 import Tweetbtn from './TweetBtn';
@@ -40,17 +40,20 @@ class Feed extends Component {
   };
 
   render() {
-    return (
-      <div className="feed container">
-        <Navbar
-          user={this.props.user}
-          logoutUser={this.props.logoutUser}
-          history={this.props.history}
-        />
-        <Tweetbtn addTweet={this.addTweet} />
-        <TweetFeed posts={this.state.posts} />
-      </div>
-    );
+    if (this.props.user) {
+      return (
+        <div className="feed container">
+          <Navbar
+            user={this.props.user}
+            logoutUser={this.props.logoutUser}
+            history={this.props.history}
+          />
+          <Tweetbtn addTweet={this.addTweet} />
+          <TweetFeed posts={this.state.posts} />
+        </div>
+      );
+    }
+    return <Redirect to="/login" />;
   }
 }
 

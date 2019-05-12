@@ -4,7 +4,9 @@ import '../styles/Navbar.css';
 
 function Navbar(props) {
   const { user } = props;
-  console.log(user);
+  // console.log(user);
+
+  // Links to be displayed with condition of user login
   const linkList =
     user !== null
       ? [
@@ -42,6 +44,7 @@ function Navbar(props) {
             <Link to="/about">About</Link>
           </li>,
         ];
+
   return (
     <nav className="navbar">
       <ul className="Navlinks">{linkList}</ul>
