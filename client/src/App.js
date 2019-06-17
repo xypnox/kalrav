@@ -9,7 +9,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null,
+      user: null
     };
   }
 
@@ -19,18 +19,19 @@ class App extends Component {
       // console.log('Logging In user: ', user);
       if (user.username !== null && user.password !== null) {
         this.setState({
-          user,
+          user
         });
       }
     });
   };
 
   logoutUser = () => {
+    const { user } = this.state;
     return new Promise(() => {
       // console.log('Logging Out user: ', this.state.user);
-      if (this.state.user) {
+      if (user) {
         this.setState({
-          user: null,
+          user: null
         });
       }
     });
@@ -38,18 +39,20 @@ class App extends Component {
 
   render() {
     // console.log('The state is: ', this.state);
+    const { user } = this.state;
+
     return (
       <BrowserRouter>
-        <div className="App">
-          <Route exact path="/" component={Home} />
+        <div className='App'>
+          <Route exact path='/' component={Home} />
 
           <Route
             exact
-            path="/login"
+            path='/login'
             render={props => (
               <Login
                 {...props}
-                user={this.state.user}
+                user={user}
                 loginUser={this.loginUser}
                 logoutUser={this.logoutUser}
               />
@@ -58,17 +61,17 @@ class App extends Component {
 
           <Route
             exact
-            path="/feed"
+            path='/feed'
             render={props => (
-              <Feed {...props} user={this.state.user} logoutUser={this.logoutUser} />
+              <Feed {...props} user={user} logoutUser={this.logoutUser} />
             )}
           />
 
           <Route
             exact
-            path="/about"
+            path='/about'
             render={props => (
-              <About {...props} user={this.state.user} logoutUser={this.logoutUser} />
+              <About {...props} user={user} logoutUser={this.logoutUser} />
             )}
           />
         </div>
