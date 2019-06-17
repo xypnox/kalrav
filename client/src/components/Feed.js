@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 import Navbar from './Navbar';
 import Tweetbtn from './TweetBtn';
 import TweetFeed from './TweetFeed';
@@ -10,22 +10,21 @@ class Feed extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: null,
+      posts: null
     };
   }
 
+  fetchTweets = () => {
+    fetch('/api/tweets')
+      .then(response => {
+        return response.json();
+      })
+      .then(posts => this.setState({ posts: posts.tweets }))
+      .finally();
+  };
+
   componentDidMount() {
-    axios.get('https://jsonplaceholder.typicode.com/posts').then(res => {
-      this.setState({
-        posts: res.data.map(tweet => {
-          return {
-            id: tweet.id,
-            content: tweet.body,
-            author: tweet.title,
-          };
-        }),
-      });
-    });
+    this.fetchTweets();
   }
 
   addTweet = tweet => {
@@ -35,25 +34,33 @@ class Feed extends Component {
     const { posts } = this.state;
     const postNew = posts.length ? [tweet, ...posts] : posts;
     this.setState({
-      posts: postNew,
+      posts: postNew
     });
   };
 
   render() {
+    // console.log(this.state.posts);
     if (this.props.user) {
       return (
-        <div className="feed container">
+        <div className='feed container'>
           <Navbar
             user={this.props.user}
             logoutUser={this.props.logoutUser}
             history={this.props.history}
           />
           <Tweetbtn addTweet={this.addTweet} />
-          <TweetFeed posts={this.state.posts} />
+          {this.state.posts ? (
+            <TweetFeed
+              posts={this.state.posts}
+              fetchTweets={this.fetchTweets}
+            />
+          ) : (
+            'No Tweets yet'
+          )}
         </div>
       );
     }
-    return <Redirect to="/login" />;
+    return <Redirect to='/login' />;
   }
 }
 

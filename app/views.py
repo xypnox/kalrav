@@ -1,12 +1,3 @@
-from flask import request, jsonify, Blueprint
-
-bp = Blueprint('blueprint', __name__, template_folder='templates')
-
-
-@bp.route("/", methods=["GET"])
-def index():
-    return jsonify(message="Hello World!"), 200
-
 
 # @bp.route("/login", methods=["POST"])
 # def login():

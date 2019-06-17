@@ -9,9 +9,16 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null
+      user: null,
+      data: null
     };
   }
+
+  componentDidMount = () => {
+    fetch('/api/')
+      .then(response => response.json())
+      .then(data => this.setState({ data }));
+  };
 
   loginUser = user => {
     // Get the current 'global' time from an API using Promise
@@ -39,7 +46,9 @@ class App extends Component {
 
   render() {
     // console.log('The state is: ', this.state);
-    const { user } = this.state;
+    const { user, data } = this.state;
+
+    console.log(user, data);
 
     return (
       <BrowserRouter>
