@@ -13,6 +13,11 @@ class Login extends Component {
     };
   }
 
+  componentDidUpdate() {
+    let accessToken = localStorage.getItem('access_token');
+    console.log(accessToken);
+  }
+
   handleChange = e => {
     this.setState({
       [e.target.id]: e.target.value
@@ -21,16 +26,14 @@ class Login extends Component {
 
   handleLogin = e => {
     e.preventDefault();
-    fetch('/api/auth/twitter/url').then(resp => {
+    axios.get('/api/auth/twitter/url').then(resp => {
       if (resp) {
-        resp.json().then(data => {
-          console.log(data['url']);
-          this.setState({
-            showPinbox: true
-          });
-
-          window.open(`${data['url']}`, '_blank');
+        console.log(resp.data.url);
+        this.setState({
+          showPinbox: true
         });
+
+        window.open(`${resp.data.url}`, '_blank');
       } else {
         console.log(resp);
       }
@@ -47,7 +50,8 @@ class Login extends Component {
         })
         .then(resp => {
           console.log(resp.data);
-          localStorage.setItem('access', JSON.stringify(resp.data));
+          localStorage.setItem('access_token', resp.data.token);
+          localStorage.setItem('access_secret', resp.data.secret);
         });
 
       // fetch('/api/auth/twitter/login', {
