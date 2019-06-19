@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/static/css/main.80f5d36a.chunk.css",
+    "main.js": "/static/js/main.076f6c4d.chunk.js",
+    "main.js.map": "/static/js/main.076f6c4d.chunk.js.map",
+    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
+    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
+    "static/js/2.60aaa0ad.chunk.js": "/static/js/2.60aaa0ad.chunk.js",
+    "static/js/2.60aaa0ad.chunk.js.map": "/static/js/2.60aaa0ad.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.95f4b851f74ba6ac75bf2e25deb04703.js": "/precache-manifest.95f4b851f74ba6ac75bf2e25deb04703.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.80f5d36a.chunk.css.map": "/static/css/main.80f5d36a.chunk.css.map",
+    "static/media/406-heart-with-ribbon.svg": "/static/media/406-heart-with-ribbon.b142cd3d.svg",
+    "static/media/661-sparkles.svg": "/static/media/661-sparkles.a4586395.svg",
+    "static/media/713-open-book.svg": "/static/media/713-open-book.de4934a3.svg",
+    "static/media/74-nauseated-face-2.svg": "/static/media/74-nauseated-face-2.d3d1e0e2.svg",
+    "static/media/Features.css": "/static/media/back.05481c48.svg",
+    "static/media/undraw_absorbed.svg": "/static/media/undraw_absorbed.e154de50.svg"
+  }
+}
