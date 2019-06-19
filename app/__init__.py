@@ -11,13 +11,16 @@ from app.helpers import filterTextTweets
 
 if os.getenv('REACT_LOCAL') == "TRUE":
     app = Flask(__name__)
+    print("Run React Server to test frontend")
 else:
     # set the project root directory as the static folder, you can set others.
-    print("Run React Server to test frontend")
     app = Flask(__name__,
                 static_url_path='',
-                static_folder='client/build')
+                static_folder='../client/build')
 
+    @app.route('/')
+    def root():
+        return app.send_static_file('index.html')
 
 # Check Configuration section for more details
 SESSION_TYPE = 'filesystem'
@@ -138,11 +141,6 @@ def tweets():
 
 
 app.register_blueprint(bp, url_prefix='/api')
-
-
-@app.route('/')
-def root():
-    return app.send_static_file('index.html')
 
 
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY') or \
