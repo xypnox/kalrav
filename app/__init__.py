@@ -30,11 +30,13 @@ api = tweepy.API(auth)
 def getTweets():
     maxId = session.get('id',  0)
     if maxId != 0:
-        public_tweets = api.home_timeline(count=200, max_id=maxId)
-        session['id'] = public_tweets[-1].id
-        tweets = session['tweets']
-        session['tweets'] = tweets + filterTextTweets(public_tweets)
-
+        try:
+            public_tweets = api.home_timeline(count=200, max_id=maxId)
+            session['id'] = public_tweets[-1].id
+            tweets = session['tweets']
+            session['tweets'] = tweets + filterTextTweets(public_tweets)
+        except IndexError:
+            session['tweets'] = None
     else:
         public_tweets = api.home_timeline(count=200)
         tweets = session['tweets'] = filterTextTweets(public_tweets)
@@ -96,9 +98,15 @@ def setAccessKeys():
 
 @bp.route("/get/user")
 def userInfo():
-    if api.verify_credentials():
+    try:
         user = api.me()
-        return jsonify(user), 200
+        data = {
+            'username': user.screen_name,
+            'profile_image_url': user.profile_image_url
+        }
+        return jsonify(data), 200
+    except:
+        return jsonify("You have bad credentials"), 401
 
 
 @bp.route("/error_handler")
