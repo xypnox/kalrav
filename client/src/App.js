@@ -49,6 +49,7 @@ class App extends Component {
     const { user, data } = this.state;
 
     console.log(user, data);
+    console.log(localStorage.getItem('access'));
 
     return (
       <BrowserRouter>

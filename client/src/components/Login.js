@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import axios from 'axios';
 import '../styles/Login.css';
 
 class Login extends Component {
@@ -21,9 +22,18 @@ class Login extends Component {
   handleLogin = e => {
     e.preventDefault();
     fetch('/api/auth/twitter/url').then(resp => {
-      resp.json().then(data => {
-        console.log(data);
-      });
+      if (resp) {
+        resp.json().then(data => {
+          console.log(data['url']);
+          this.setState({
+            showPinbox: true
+          });
+
+          window.open(`${data['url']}`, '_blank');
+        });
+      } else {
+        console.log(resp);
+      }
     });
   };
 
@@ -31,7 +41,33 @@ class Login extends Component {
     e.preventDefault();
     // console.log(this.state, this.props);
     if (this.state.username !== null) {
-      // this.props.loginUser(this.state);
+      axios
+        .post('/api/auth/twitter/login', {
+          pin: this.state.pin
+        })
+        .then(resp => {
+          console.log(resp.data);
+          localStorage.setItem('access', JSON.stringify(resp.data));
+        });
+
+      // fetch('/api/auth/twitter/login', {
+      //   method: 'GET',
+      //   headers: {
+      //     Accept: 'application/json',
+      //     'Content-Type': 'application/json'
+      //   },
+      //   body: JSON.stringify({ pin: this.state.pin })
+      // })
+      //   .then(resp => {
+      //     if (resp) {
+      //       resp.json().then(data => {
+      //         localStorage['access'] = data;
+      //       });
+      //     } else {
+      //       console.log(resp);
+      //     }
+      //   })
+      //   .finally(this.props.history.push('/feed'));
     }
   };
 
@@ -65,7 +101,7 @@ class Login extends Component {
             {this.state.showPinbox ? (
               <input
                 type='text'
-                className='pinbox'
+                placeholder='PIN provided by Twitter'
                 id='pin'
                 onChange={this.handleChange}
               />
