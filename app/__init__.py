@@ -27,9 +27,6 @@ auth = tweepy.OAuthHandler(con_key, con_secret, 'oob')
 api = tweepy.API(auth)
 
 
-oauth_url = None
-
-
 def getTweets():
     maxId = session.get('id',  0)
     if maxId != 0:
@@ -49,18 +46,10 @@ bp = Blueprint('blueprint', __name__, template_folder='templates')
 
 @bp.route("/auth/twitter/url", methods=["GET"])
 def authTwitter():
-    global oauth_url
     try:
-        if oauth_url:
-            redirect_url = {
-                "url": oauth_url
-            }
-            return jsonify(redirect_url), 200
-
         redirect_url = {
             "url": auth.get_authorization_url()
         }
-        oauth_url = redirect_url['url']
         session['request_token'] = auth.request_token['oauth_token']
 
         return jsonify(redirect_url), 200
