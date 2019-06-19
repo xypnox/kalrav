@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 from flask_session import Session
 
 
+from app.helpers import filterTextTweets
+
 app = Flask(__name__)
 # Check Configuration section for more details
 SESSION_TYPE = 'filesystem'
@@ -23,14 +25,6 @@ con_secret = os.getenv('CON_SECRET')
 
 auth = tweepy.OAuthHandler(con_key, con_secret, 'oob')
 api = tweepy.API(auth)
-
-
-def filterTextTweets(mixTweets):
-    tweets = []
-    for tweet in mixTweets:
-        if len(tweet.entities['urls']) + len(tweet.entities['user_mentions']) + len(tweet.entities.get('media', [])) == 0:
-            tweets.append(tweet._json)
-    return tweets
 
 
 def getTweets():
@@ -53,11 +47,13 @@ bp = Blueprint('blueprint', __name__, template_folder='templates')
 @bp.route("/auth/twitter/url", methods=["GET"])
 def authTwitter():
     try:
-        redirect_url = auth.get_authorization_url()
+        redirect_url = {
+            "url": auth.get_authorization_url()
+        }
         session['request_token'] = auth.request_token['oauth_token']
         return jsonify(redirect_url), 200
-    except tweepy.TweepError:
-        return jsonify(None), 404
+    except tweepy.TweepError as error:
+        return jsonify(error), 404
 
 
 @bp.route("/auth/twitter/login", methods=["GET"])
@@ -70,7 +66,14 @@ def loginTwitter():
 
     try:
         auth.get_access_token(pincode)
-        return jsonify(True), 200
+
+        authAccess = {
+            "token": auth.access_token,
+            "secret": auth.access_token_secret
+        }
+
+        return jsonify(authAccess), 200
+
     except tweepy.TweepError:
         return jsonify(None), 404
 
