@@ -81,6 +81,26 @@ def loginTwitter():
         return jsonify(None), 404
 
 
+@bp.route("/auth/twitter/set", methods=["POST"])
+def setAccessKeys():
+    try:
+        data = request.get_json()
+        token = data['token']
+        secret = data['secret']
+        auth.set_access_token(token, secret)
+
+        return jsonify(True), 200
+    except:
+        return jsonify(False), 401
+
+
+@bp.route("/get/user")
+def userInfo():
+    if api.verify_credentials():
+        user = api.me()
+        return jsonify(user), 200
+
+
 @bp.route("/error_handler")
 def eroorororo():
     return jsonify(None), 404
