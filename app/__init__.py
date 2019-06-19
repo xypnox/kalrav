@@ -18,6 +18,10 @@ else:
                 static_url_path='',
                 static_folder='client/build')
 
+    @app.route('/')
+    def root():
+        return app.send_static_file('index.html')
+
 # Check Configuration section for more details
 SESSION_TYPE = 'filesystem'
 app.config.from_object(__name__)
@@ -137,6 +141,7 @@ def tweets():
 
 
 app.register_blueprint(bp, url_prefix='/api')
+
 
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY') or \
     'e5ac358c-f0bf-11e5-9e39-d3b532c10a28'
