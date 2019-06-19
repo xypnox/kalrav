@@ -24,7 +24,7 @@ class App extends Component {
     // Get the current 'global' time from an API using Promise
     return new Promise(() => {
       // console.log('Logging In user: ', user);
-      if (user.username !== null && user.password !== null) {
+      if (user.username !== null) {
         this.setState({
           user
         });
