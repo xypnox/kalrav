@@ -17,7 +17,7 @@ freeze:
 
 commit:
 		git add --all
-		git commit -m "BUILD $(date +"%D %T")"
+		git commit -m --allow-empty "BUILD $(date +"%D %T")"
 
 deploy: client/build/*
 		make freeze
