@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, Blueprint, session
+from flask import Flask, request, jsonify, Blueprint, session, abort
 import tweepy
 import os
 from os.path import join, dirname
@@ -12,18 +12,6 @@ SESSION_TYPE = 'filesystem'
 app.config.from_object(__name__)
 Session(app)
 
-
-# @app.route('/set/')
-# def set():
-#     session['key'] = 'value'
-#     return 'ok'
-
-
-# @app.route('/get/')
-# def get():
-#     return session.get('key', 'not set')
-
-
 # Create .env file path.
 dotenv_path = join(dirname(__file__), '.env')
 
@@ -32,11 +20,8 @@ load_dotenv(dotenv_path)
 
 con_key = os.getenv('CON_KEY')
 con_secret = os.getenv('CON_SECRET')
-access_token = os.getenv('ACCESS_TOKEN')
-access_token_secret = os.getenv('ACCESS_TOKEN_SECRET')
 
-auth = tweepy.OAuthHandler(con_key, con_secret)
-auth.set_access_token(access_token, access_token_secret)
+auth = tweepy.OAuthHandler(con_key, con_secret, 'oob')
 api = tweepy.API(auth)
 
 
@@ -65,6 +50,36 @@ def getTweets():
 bp = Blueprint('blueprint', __name__, template_folder='templates')
 
 
+@bp.route("/auth/twitter/url", methods=["GET"])
+def authTwitter():
+    try:
+        redirect_url = auth.get_authorization_url()
+        session['request_token'] = auth.request_token['oauth_token']
+        return jsonify(redirect_url), 200
+    except tweepy.TweepError:
+        return jsonify(None), 404
+
+
+@bp.route("/auth/twitter/login", methods=["GET"])
+def loginTwitter():
+    pincode = request.get_json()['pin']
+    token = session['request_token']
+    session['request_token'] = None
+    auth.request_token = {'oauth_token': token,
+                          'oauth_token_secret': pincode}
+
+    try:
+        auth.get_access_token(pincode)
+        return jsonify(True), 200
+    except tweepy.TweepError:
+        return jsonify(None), 404
+
+
+@bp.route("/error_handler")
+def eroorororo():
+    return jsonify(None), 404
+
+
 @bp.route("/", methods=["GET"])
 def index():
     return jsonify(message="Hello World!"), 200
@@ -81,4 +96,3 @@ app.register_blueprint(bp, url_prefix='/api')
 
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY') or \
     'e5ac358c-f0bf-11e5-9e39-d3b532c10a28'
-from app import views  # noqa
