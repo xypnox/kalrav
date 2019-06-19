@@ -9,13 +9,33 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      showForm: false,
       showPinbox: false
     };
   }
 
-  componentDidUpdate() {
+  componentWillMount() {
+    console.log('We are mounted');
+
     let accessToken = localStorage.getItem('access_token');
-    console.log(accessToken);
+    let accessSecret = localStorage.getItem('access_secret');
+    console.log('Token : ', accessToken, ' Secret : ', accessSecret);
+
+    if (accessSecret && accessToken) {
+      axios
+        .post('/api/auth/twitter/set', {
+          token: accessToken,
+          secret: accessSecret
+        })
+        .then(resp => {
+          console.log('RESPONSE: ', resp.data);
+        })
+        .then(this.props.loginUser());
+    } else {
+      this.setState({
+        showForm: true
+      });
+    }
   }
 
   handleChange = e => {
@@ -52,26 +72,8 @@ class Login extends Component {
           console.log(resp.data);
           localStorage.setItem('access_token', resp.data.token);
           localStorage.setItem('access_secret', resp.data.secret);
-        });
-
-      // fetch('/api/auth/twitter/login', {
-      //   method: 'GET',
-      //   headers: {
-      //     Accept: 'application/json',
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify({ pin: this.state.pin })
-      // })
-      //   .then(resp => {
-      //     if (resp) {
-      //       resp.json().then(data => {
-      //         localStorage['access'] = data;
-      //       });
-      //     } else {
-      //       console.log(resp);
-      //     }
-      //   })
-      //   .finally(this.props.history.push('/feed'));
+        })
+        .finally(this.props.loginUser());
     }
   };
 
@@ -92,30 +94,34 @@ class Login extends Component {
             history={this.props.history}
           />
           <h1>Login</h1>
-          <form
-            onSubmit={e => {
-              if (showPinbox) {
-                this.handleSubmit(e);
-              } else {
-                console.log('handleing login');
-                this.handleLogin(e);
-              }
-            }}
-          >
-            {this.state.showPinbox ? (
-              <input
-                type='text'
-                placeholder='PIN provided by Twitter'
-                id='pin'
-                onChange={this.handleChange}
-              />
-            ) : (
-              ' '
-            )}
-            <button type='submit' className='action-button'>
-              Login via <i className='icon-twitter' />
-            </button>
-          </form>
+          {this.state.showForm ? (
+            <form
+              onSubmit={e => {
+                if (showPinbox) {
+                  this.handleSubmit(e);
+                } else {
+                  console.log('handleing login');
+                  this.handleLogin(e);
+                }
+              }}
+            >
+              {this.state.showPinbox ? (
+                <input
+                  type='text'
+                  placeholder='PIN provided by Twitter'
+                  id='pin'
+                  onChange={this.handleChange}
+                />
+              ) : (
+                ' '
+              )}
+              <button type='submit' className='action-button'>
+                Login via <i className='icon-twitter' />
+              </button>
+            </form>
+          ) : (
+            'Trying to Login'
+          )}
           <Footer />
         </div>
       </div>

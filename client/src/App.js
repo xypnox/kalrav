@@ -4,6 +4,7 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Feed from './components/Feed';
 import About from './components/About';
+import axios from 'axios';
 
 class App extends Component {
   constructor(props) {
@@ -20,13 +21,19 @@ class App extends Component {
       .then(data => this.setState({ data }));
   };
 
-  loginUser = user => {
+  loginUser = () => {
     // Get the current 'global' time from an API using Promise
     return new Promise(() => {
       // console.log('Logging In user: ', user);
-      if (user.username !== null) {
-        this.setState({
-          user
+      if (this.state.user == null) {
+        axios.get('/api/get/user').then(resp => {
+          console.log(resp.data);
+          this.setState({
+            user: {
+              username: resp.data.username,
+              profileImage: resp.data.profile_image_url
+            }
+          });
         });
       }
     });
@@ -49,7 +56,6 @@ class App extends Component {
     const { user, data } = this.state;
 
     console.log(user, data);
-    console.log(localStorage.getItem('access'));
 
     return (
       <BrowserRouter>
