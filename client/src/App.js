@@ -23,20 +23,18 @@ class App extends Component {
 
   loginUser = () => {
     // Get the current 'global' time from an API using Promise
-    return new Promise(() => {
-      // console.log('Logging In user: ', user);
-      if (this.state.user == null) {
-        axios.get('/api/get/user').then(resp => {
-          console.log(resp.data);
-          this.setState({
-            user: {
-              username: resp.data.username,
-              profileImage: resp.data.profile_image_url
-            }
-          });
+    // console.log('Logging In user: ', user);
+    if (this.state.user == null) {
+      axios.get('/api/get/user').then(resp => {
+        console.log(resp.data);
+        this.setState({
+          user: {
+            username: resp.data.username,
+            profileImage: resp.data.profile_image_url
+          }
         });
-      }
-    });
+      });
+    }
   };
 
   logoutUser = () => {

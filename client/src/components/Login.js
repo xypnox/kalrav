@@ -63,6 +63,9 @@ class Login extends Component {
   handleSubmit = e => {
     e.preventDefault();
     // console.log(this.state, this.props);
+    this.setState({
+      showForm: false
+    });
     if (this.state.username !== null) {
       axios
         .post('/api/auth/twitter/login', {
