@@ -8,7 +8,16 @@ from flask_session import Session
 
 from app.helpers import filterTextTweets
 
-app = Flask(__name__)
+
+if os.getenv('REACT_LOCAL') == "TRUE":
+    app = Flask(__name__)
+else:
+    # set the project root directory as the static folder, you can set others.
+    print("Run React Server to test frontend")
+    app = Flask(__name__,
+                static_url_path='',
+                static_folder='client/build')
+
 # Check Configuration section for more details
 SESSION_TYPE = 'filesystem'
 app.config.from_object(__name__)
@@ -22,6 +31,7 @@ load_dotenv(dotenv_path)
 
 con_key = os.getenv('CON_KEY')
 con_secret = os.getenv('CON_SECRET')
+
 
 auth = tweepy.OAuthHandler(con_key, con_secret, 'oob')
 api = tweepy.API(auth)
