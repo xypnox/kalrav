@@ -7,19 +7,19 @@ class TweetBtn extends Component {
     super(props);
     this.state = {
       isActive: false,
-      content: null,
+      content: null
     };
   }
 
   handleClick = () => {
     this.setState({
-      isActive: true,
+      isActive: true
     });
   };
 
   handleChange = e => {
     this.setState({
-      content: e.target.value,
+      content: e.target.value
     });
   };
 
@@ -30,23 +30,23 @@ class TweetBtn extends Component {
     }
     this.setState({
       isActive: false,
-      content: null,
+      content: null
     });
   };
 
   render() {
     if (this.state.isActive) {
       return (
-        <div className="tweetbtn active">
-          <i className="icon-vector-pencil" />
+        <div className='tweetbtn active'>
+          <i className='icon-vector-pencil' />
           <form onSubmit={this.handleSubmit}>
             <textarea
-              rows="5"
-              placeholder="Tweet Something?"
+              rows='5'
+              placeholder='Tweet Something?'
               autoFocus
               onChange={this.handleChange}
             />
-            <button type="submit" className="action-button">
+            <button type='submit' className='action-button'>
               Tweet
             </button>
           </form>
@@ -55,8 +55,8 @@ class TweetBtn extends Component {
     }
 
     return (
-      <div className="tweetbtn" onClick={this.handleClick}>
-        <i className="icon-vector-pencil" />
+      <div className='tweetbtn' onClick={this.handleClick}>
+        <i className='icon-vector-pencil' />
         <p>{this.props.placeholder}</p>
       </div>
     );
@@ -64,7 +64,7 @@ class TweetBtn extends Component {
 }
 
 TweetBtn.defaultProps = {
-  placeholder: 'Tweet Something ?',
+  placeholder: 'Tweet Something ?'
 };
 
 export default TweetBtn;

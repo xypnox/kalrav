@@ -10,15 +10,15 @@ function Navbar(props) {
   const linkList =
     user !== null
       ? [
-          <li className="appName" key={0}>
-            <Link to="/feed">Kalrav</Link>
+          <li className='appName' key={0}>
+            <Link to='/feed'>Kalrav</Link>
           </li>,
           <li key={1}>
-            <Link to="/settings">Settings</Link>
+            <Link to='/settings'>Settings</Link>
           </li>,
           <li key={2}>
             <button
-              type="button"
+              type='button'
               onClick={() => {
                 props.logoutUser().then(props.history.push('/'));
               }}
@@ -27,27 +27,27 @@ function Navbar(props) {
             </button>
           </li>,
           <li key={3}>
-            <Link to="/tweet">Tweet</Link>
+            <Link to='/tweet'>Tweet</Link>
           </li>,
           <li key={4}>
-            <Link to="/about">About</Link>
-          </li>,
+            <Link to='/about'>About</Link>
+          </li>
         ]
       : [
-          <li className="appName" key={5}>
-            <Link to="/">Kalrav</Link>
+          <li className='appName' key={5}>
+            <Link to='/'>Kalrav</Link>
           </li>,
           <li key={6}>
-            <Link to="/Login">Login</Link>
+            <Link to='/Login'>Login</Link>
           </li>,
           <li key={7}>
-            <Link to="/about">About</Link>
-          </li>,
+            <Link to='/about'>About</Link>
+          </li>
         ];
 
   return (
-    <nav className="navbar">
-      <ul className="Navlinks">{linkList}</ul>
+    <nav className='navbar'>
+      <ul className='Navlinks'>{linkList}</ul>
     </nav>
   );
 }
