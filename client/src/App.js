@@ -24,17 +24,19 @@ class App extends Component {
   loginUser = () => {
     // Get the current 'global' time from an API using Promise
     // console.log('Logging In user: ', user);
-    if (this.state.user == null) {
-      axios.get('/api/get/user').then(resp => {
-        console.log(resp.data);
-        this.setState({
-          user: {
-            username: resp.data.username,
-            profileImage: resp.data.profile_image_url
-          }
+    return new Promise(() => {
+      if (this.state.user == null) {
+        axios.get('/api/get/user').then(resp => {
+          // console.log(resp.data);
+          this.setState({
+            user: {
+              username: resp.data.username,
+              profileImage: resp.data.profile_image_url
+            }
+          });
         });
-      });
-    }
+      }
+    });
   };
 
   logoutUser = () => {
@@ -53,7 +55,7 @@ class App extends Component {
     // console.log('The state is: ', this.state);
     const { user, data } = this.state;
 
-    console.log(user, data);
+    // console.log(user, data);
 
     return (
       <BrowserRouter>

@@ -15,11 +15,11 @@ class Login extends Component {
   }
 
   componentWillMount() {
-    console.log('We are mounted');
+    // console.log('We are mounted');
 
     let accessToken = localStorage.getItem('access_token');
     let accessSecret = localStorage.getItem('access_secret');
-    console.log('Token : ', accessToken, ' Secret : ', accessSecret);
+    // console.log('Token : ', accessToken, ' Secret : ', accessSecret);
 
     if (accessSecret && accessToken) {
       axios
@@ -28,9 +28,13 @@ class Login extends Component {
           secret: accessSecret
         })
         .then(resp => {
-          console.log('RESPONSE: ', resp.data);
+          // console.log('RESPONSE: ', resp.data);
         })
-        .then(this.props.loginUser());
+        .then(
+          this.props.loginUser().then(() => {
+            this.props.history.push('/feed');
+          })
+        );
     } else {
       this.setState({
         showForm: true
@@ -48,14 +52,14 @@ class Login extends Component {
     e.preventDefault();
     axios.get('/api/auth/twitter/url').then(resp => {
       if (resp) {
-        console.log(resp.data.url);
+        // console.log(resp.data.url);
         this.setState({
           showPinbox: true
         });
 
         window.open(`${resp.data.url}`, '_blank');
       } else {
-        console.log(resp);
+        // console.log(resp);
       }
     });
   };
@@ -72,16 +76,20 @@ class Login extends Component {
           pin: this.state.pin
         })
         .then(resp => {
-          console.log(resp.data);
+          // console.log(resp.data);
           localStorage.setItem('access_token', resp.data.token);
           localStorage.setItem('access_secret', resp.data.secret);
         })
-        .finally(this.props.loginUser());
+        .finally(
+          this.props.loginUser().then(() => {
+            this.props.history.push('/feed');
+          })
+        );
     }
   };
 
   render() {
-    console.log('STATE : ', this.state, '\nPROPS : ', this.props);
+    // console.log('STATE : ', this.state, '\nPROPS : ', this.props);
 
     if (this.props.user) {
       return <Redirect to='/feed' />;
@@ -103,7 +111,6 @@ class Login extends Component {
                 if (showPinbox) {
                   this.handleSubmit(e);
                 } else {
-                  console.log('handleing login');
                   this.handleLogin(e);
                 }
               }}
