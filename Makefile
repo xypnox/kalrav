@@ -19,8 +19,7 @@ commit:
 		git add --all
 		git commit --allow-empty -m "BUILD $(date +"%D %T")"
 
-deploy: client/build/*
-		make freeze
+deploy:
 		git push heroku deploy-heroku:master
 
 heroku: switch build freeze commit deploy
