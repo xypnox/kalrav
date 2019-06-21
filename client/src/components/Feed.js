@@ -10,17 +10,27 @@ class Feed extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: null
+      tweets: null
     };
   }
 
-  fetchTweets = () => {
-    fetch('/api/tweets')
-      .then(response => {
-        return response.json();
-      })
-      .then(posts => this.setState({ posts: posts.tweets }))
-      .finally();
+  fetchTweets = (getNew = false) => {
+    let tweets = JSON.parse(localStorage.getItem('tweets'));
+
+    if (getNew) {
+      fetch('/api/tweets')
+        .then(response => {
+          return response.json();
+        })
+        .then(data => this.setState({ tweets: data.tweets }))
+        .finally();
+    } else {
+      if (tweets) {
+        this.setState({
+          tweets: tweets
+        });
+      }
+    }
   };
 
   componentDidMount() {
@@ -31,15 +41,15 @@ class Feed extends Component {
     tweet.author = this.props.user.username;
     tweet.id = Math.random();
     // console.log(tweet);
-    const { posts } = this.state;
-    const postNew = posts.length ? [tweet, ...posts] : posts;
+    const { tweets } = this.state;
+    const postNew = tweets.length ? [tweet, ...tweets] : tweets;
     this.setState({
-      posts: postNew
+      tweets: postNew
     });
   };
 
   render() {
-    console.log(this.state.posts);
+    console.log(this.state.tweets);
     if (this.props.user) {
       return (
         <div className='feed container'>
@@ -49,13 +59,13 @@ class Feed extends Component {
             history={this.props.history}
           />
           <Tweetbtn addTweet={this.addTweet} />
-          {this.state.posts ? (
+          {this.state.tweets ? (
             <TweetFeed
-              posts={this.state.posts}
+              tweets={this.state.tweets}
               fetchTweets={this.fetchTweets}
             />
           ) : (
-            'No Tweets yet'
+            'Fetching Tweets...'
           )}
         </div>
       );
