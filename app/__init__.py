@@ -119,7 +119,7 @@ def index():
 
 @bp.route("/tweets", methods=["GET"])
 def tweets():
-    public_tweets = api.home_timeline()
+    public_tweets = api.home_timeline(count=200)
     tweets = [tweet._json for tweet in public_tweets]
     print(public_tweets)
     return jsonify(tweets=tweets)
@@ -130,9 +130,9 @@ def tweets_by_Id(tweet_id=0):
     if tweet_id != 0:
         public_tweets = api.home_timeline(count=200, max_id=tweet_id)
     else:
-        public_tweets = api.home_timeline()
+        public_tweets = api.home_timeline(count=200)
     tweets = [tweet._json for tweet in public_tweets]
-    print(public_tweets)
+    # print(public_tweets)
     return jsonify(tweets=tweets)
 
 
