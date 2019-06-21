@@ -17,25 +17,7 @@ class Login extends Component {
   componentWillMount() {
     // console.log('We are mounted');
 
-    let accessToken = localStorage.getItem('access_token');
-    let accessSecret = localStorage.getItem('access_secret');
-    // console.log('Token : ', accessToken, ' Secret : ', accessSecret);
-
-    if (accessSecret && accessToken) {
-      axios
-        .post('/api/auth/twitter/set', {
-          token: accessToken,
-          secret: accessSecret
-        })
-        .then(resp => {
-          // console.log('RESPONSE: ', resp.data);
-        })
-        .then(
-          this.props.loginUser().then(() => {
-            this.props.history.push('/feed');
-          })
-        );
-    } else {
+    if (this.props.loginUser() === false) {
       this.setState({
         showForm: true
       });
@@ -70,21 +52,8 @@ class Login extends Component {
     this.setState({
       showForm: false
     });
-    if (this.state.username !== null) {
-      axios
-        .post('/api/auth/twitter/login', {
-          pin: this.state.pin
-        })
-        .then(resp => {
-          // console.log(resp.data);
-          localStorage.setItem('access_token', resp.data.token);
-          localStorage.setItem('access_secret', resp.data.secret);
-        })
-        .finally(
-          this.props.loginUser().then(() => {
-            this.props.history.push('/feed');
-          })
-        );
+    if (this.state.pin !== null) {
+      this.props.loginUser(this.state.pin);
     }
   };
 

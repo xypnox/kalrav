@@ -21,22 +21,61 @@ class App extends Component {
       .then(data => this.setState({ data }));
   };
 
-  loginUser = () => {
+  loginUser = pin => {
     // Get the current 'global' time from an API using Promise
     // console.log('Logging In user: ', user);
-    return new Promise(() => {
-      if (this.state.user == null) {
-        axios.get('/api/get/user').then(resp => {
-          // console.log(resp.data);
-          this.setState({
-            user: {
-              username: resp.data.username,
-              profileImage: resp.data.profile_image_url
-            }
+    if (this.state.user == null && pin != null) {
+      axios
+        .post('/api/auth/twitter/login', {
+          pin: pin
+        })
+        .then(resp => {
+          localStorage.setItem('access_token', resp.data.token);
+          localStorage.setItem('access_secret', resp.data.secret);
+        })
+        .finally(() => {
+          axios.get('/api/get/user').then(resp => {
+            // console.log(resp.data);
+            this.setState({
+              user: {
+                username: resp.data.username,
+                profileImage: resp.data.profile_image_url
+              }
+            });
           });
         });
+      // var interval = setInterval(()=> {
+
+      // })
+    } else if (this.state.user == null) {
+      let accessToken = localStorage.getItem('access_token');
+      let accessSecret = localStorage.getItem('access_secret');
+      // console.log('Token : ', accessToken, ' Secret : ', accessSecret);
+
+      if (accessSecret && accessToken) {
+        axios
+          .post('/api/auth/twitter/set', {
+            token: accessToken,
+            secret: accessSecret
+          })
+          .then(resp => {
+            // console.log('RESPONSE: ', resp.data);
+          })
+          .finally(() => {
+            axios.get('/api/get/user').then(resp => {
+              // console.log(resp.data);
+              this.setState({
+                user: {
+                  username: resp.data.username,
+                  profileImage: resp.data.profile_image_url
+                }
+              });
+            });
+          });
+      } else {
+        return false;
       }
-    });
+    }
   };
 
   logoutUser = () => {
@@ -47,6 +86,7 @@ class App extends Component {
         this.setState({
           user: null
         });
+        localStorage.clear();
       }
     });
   };

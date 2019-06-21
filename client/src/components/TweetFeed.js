@@ -4,7 +4,7 @@ import Tweet from './Tweet';
 // import Link from 'react-router-dom';
 
 function TweetFeed({ posts, fetchTweets }) {
-  // console.log(posts);
+  console.log(posts);
   const tweetList = posts ? (
     posts.map(tweet => {
       // console.log(tweet);

@@ -39,7 +39,7 @@ class Feed extends Component {
   };
 
   render() {
-    // console.log(this.state.posts);
+    console.log(this.state.posts);
     if (this.props.user) {
       return (
         <div className='feed container'>
