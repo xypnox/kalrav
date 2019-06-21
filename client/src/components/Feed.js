@@ -18,7 +18,7 @@ class Feed extends Component {
     let tweets = JSON.parse(localStorage.getItem('tweets'));
 
     if (tweet_id) {
-      console.log('New tweets incoming!');
+      // console.log('New tweets incoming!');
       fetch(`/api/tweets${tweet_id}`)
         .then(response => {
           return response.json();
@@ -27,12 +27,12 @@ class Feed extends Component {
         .finally();
     } else {
       if (tweets) {
-        console.log('Restoring Tweets');
+        // console.log('Restoring Tweets');
         this.setState({
           tweets: tweets
         });
       } else {
-        console.log('Getting fresh tweets');
+        // console.log('Getting fresh tweets');
         fetch('/api/tweets')
           .then(response => {
             return response.json();
@@ -48,7 +48,7 @@ class Feed extends Component {
 
   refreshTweets = () => {
     localStorage.setItem('tweets', null);
-    console.log('Refreshing Tweets');
+    // console.log('Refreshing Tweets');
 
     this.fetchTweets();
   };
@@ -69,7 +69,7 @@ class Feed extends Component {
   };
 
   render() {
-    console.log(this.state.tweets);
+    // console.log(this.state.tweets);
     if (this.props.user) {
       return (
         <div className='feed container'>
