@@ -23,10 +23,6 @@ else:
     def catch_all(path):
         return app.send_static_file('index.html')
 
-    @app.route('/')
-    def root():
-        return app.send_static_file('index.html')
-
 
 # Check Configuration section for more details
 SESSION_TYPE = 'filesystem'
