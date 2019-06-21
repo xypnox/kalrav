@@ -41,22 +41,6 @@ auth = tweepy.OAuthHandler(con_key, con_secret, 'oob')
 api = tweepy.API(auth)
 
 
-def getTweets():
-    maxId = session.get('id',  0)
-    if maxId != 0:
-        try:
-            public_tweets = api.home_timeline(count=200, max_id=maxId)
-            session['id'] = public_tweets[-1].id
-            tweets = session['tweets']
-            session['tweets'] = tweets + filterTextTweets(public_tweets)
-        except IndexError:
-            session['tweets'] = None
-    else:
-        public_tweets = api.home_timeline(count=200)
-        tweets = session['tweets'] = filterTextTweets(public_tweets)
-        session['id'] = public_tweets[-1].id
-
-
 bp = Blueprint('blueprint', __name__, template_folder='templates')
 
 
@@ -135,8 +119,20 @@ def index():
 
 @bp.route("/tweets", methods=["GET"])
 def tweets():
-    getTweets()
-    tweets = session['tweets']
+    public_tweets = api.home_timeline()
+    tweets = [tweet._json for tweet in public_tweets]
+    print(public_tweets)
+    return jsonify(tweets=tweets)
+
+
+@bp.route("/tweets/<int:tweet_id>", methods=["GET"])
+def tweets_by_Id(tweet_id=0):
+    if tweet_id != 0:
+        public_tweets = api.home_timeline(count=200, max_id=tweet_id)
+    else:
+        public_tweets = api.home_timeline()
+    tweets = [tweet._json for tweet in public_tweets]
+    print(public_tweets)
     return jsonify(tweets=tweets)
 
 
