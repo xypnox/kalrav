@@ -10,17 +10,47 @@ class Feed extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: null
+      tweets: null
     };
   }
 
-  fetchTweets = () => {
-    fetch('/api/tweets')
-      .then(response => {
-        return response.json();
-      })
-      .then(posts => this.setState({ posts: posts.tweets }))
-      .finally();
+  fetchTweets = tweet_id => {
+    let tweets = JSON.parse(localStorage.getItem('tweets'));
+
+    if (tweet_id) {
+      // console.log('New tweets incoming!');
+      fetch(`/api/tweets${tweet_id}`)
+        .then(response => {
+          return response.json();
+        })
+        .then(data => this.setState({ tweets: data.tweets }))
+        .finally();
+    } else {
+      if (tweets) {
+        // console.log('Restoring Tweets');
+        this.setState({
+          tweets: tweets
+        });
+      } else {
+        // console.log('Getting fresh tweets');
+        fetch('/api/tweets')
+          .then(response => {
+            return response.json();
+          })
+          .then(data => {
+            this.setState({ tweets: data.tweets });
+            localStorage.setItem('tweets', JSON.stringify(data.tweets));
+          })
+          .finally();
+      }
+    }
+  };
+
+  refreshTweets = () => {
+    localStorage.setItem('tweets', null);
+    // console.log('Refreshing Tweets');
+
+    this.fetchTweets();
   };
 
   componentDidMount() {
@@ -31,31 +61,32 @@ class Feed extends Component {
     tweet.author = this.props.user.username;
     tweet.id = Math.random();
     // console.log(tweet);
-    const { posts } = this.state;
-    const postNew = posts.length ? [tweet, ...posts] : posts;
+    const { tweets } = this.state;
+    const postNew = tweets.length ? [tweet, ...tweets] : tweets;
     this.setState({
-      posts: postNew
+      tweets: postNew
     });
   };
 
   render() {
-    console.log(this.state.posts);
+    // console.log(this.state.tweets);
     if (this.props.user) {
       return (
         <div className='feed container'>
           <Navbar
             user={this.props.user}
+            clickFunc={this.refreshTweets}
             logoutUser={this.props.logoutUser}
             history={this.props.history}
           />
           <Tweetbtn addTweet={this.addTweet} />
-          {this.state.posts ? (
+          {this.state.tweets ? (
             <TweetFeed
-              posts={this.state.posts}
+              tweets={this.state.tweets}
               fetchTweets={this.fetchTweets}
             />
           ) : (
-            'No Tweets yet'
+            'Fetching Tweets...'
           )}
         </div>
       );

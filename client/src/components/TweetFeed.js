@@ -3,22 +3,15 @@ import '../styles/TweetFeed.css';
 import Tweet from './Tweet';
 // import Link from 'react-router-dom';
 
-function TweetFeed({ posts, fetchTweets }) {
-  console.log(posts);
-  const tweetList = posts ? (
-    posts.map(tweet => {
+function TweetFeed({ tweets, fetchTweets }) {
+  // console.log(tweets);
+  const tweetList = tweets ? (
+    tweets.map(tweet => {
       // console.log(tweet);
-      return (
-        <Tweet
-          key={tweet.id}
-          id={tweet.id}
-          author={tweet.user.name}
-          content={tweet.text}
-        />
-      );
+      return <Tweet key={tweet.id} tweet={tweet} />;
     })
   ) : (
-    <p>No Tweets yet</p>
+    <p>The Tweet feed seems to be empty</p>
   );
   return (
     <div className='TweetFeed-wrapper'>

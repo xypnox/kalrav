@@ -10,13 +10,10 @@ function Navbar(props) {
   const linkList =
     user !== null
       ? [
-          <li className='appName' key={0}>
+          <li className='appName' key={0} onClick={props.clickFunc}>
             <Link to='/feed'>Kalrav</Link>
           </li>,
           <li key={1}>
-            <Link to='/settings'>Settings</Link>
-          </li>,
-          <li key={2}>
             <button
               type='button'
               onClick={() => {
@@ -26,10 +23,7 @@ function Navbar(props) {
               Logout
             </button>
           </li>,
-          <li key={3}>
-            <Link to='/tweet'>Tweet</Link>
-          </li>,
-          <li key={4}>
+          <li key={2}>
             <Link to='/about'>About</Link>
           </li>
         ]

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import Linkify from 'react-linkify';
 // import Link from 'react-router-dom';
 import '../styles/Tweet.css';
 import TweetBtn from './TweetBtn';
+import axios from 'axios';
 
 class Tweet extends Component {
   constructor(props) {
@@ -27,12 +29,20 @@ class Tweet extends Component {
 
   handleClickLike = e => {
     if (!this.state.isLiked) {
-      this.setState({
-        isLiked: true
+      axios.get(`/api/like/${this.props.tweet.id_str}`).then(resp => {
+        if (resp.status === 200) {
+          this.setState({
+            isLiked: true
+          });
+        }
       });
     } else {
-      this.setState({
-        isLiked: false
+      axios.get(`/api/like/remove/${this.props.tweet.id_str}`).then(resp => {
+        if (resp.status === 200) {
+          this.setState({
+            isLiked: false
+          });
+        }
       });
     }
   };
@@ -58,19 +68,35 @@ class Tweet extends Component {
   };
 
   render() {
-    const { id, author, content } = this.props;
+    const { tweet } = this.props;
+    let tweetContent = tweet.text;
     const replyBox = this.state.showReply ? (
       <TweetBtn placeholder='Reply to this tweet' addTweet={this.addTweet} />
     ) : (
       <div />
     );
+    if (tweet.entities.media) {
+      tweetContent = tweet.text.substring(0, tweet.text.length - 23);
+    }
     const likeClass = this.state.isLiked ? 'isLiked' : '';
     const replyClass = this.state.showReply ? 'isReply' : '';
     const retweetClass = this.state.isRetweet ? 'isRetweet' : '';
     return (
-      <div className='Tweet' key={id}>
-        <div className='author'>{author}</div>
-        <div className='content'>{content}</div>
+      <div className='Tweet' key={`tweet-${tweet.id}`}>
+        <div className='author'>{tweet.user.name}</div>
+        <Linkify
+          properties={{
+            target: '_blank'
+          }}
+        >
+          <div className='content'>{tweetContent}</div>
+        </Linkify>
+
+        {tweet.entities.media ? (
+          <div className='media'>
+            <img src={tweet.entities.media[0].media_url} alt='' />
+          </div>
+        ) : null}
         <div className='tweetActions'>
           <button
             type='button'

@@ -119,9 +119,9 @@ def index():
 
 @bp.route("/tweets", methods=["GET"])
 def tweets():
-    public_tweets = api.home_timeline()
+    public_tweets = api.home_timeline(count=200)
     tweets = [tweet._json for tweet in public_tweets]
-    print(public_tweets)
+    # print(public_tweets)
     return jsonify(tweets=tweets)
 
 
@@ -130,10 +130,28 @@ def tweets_by_Id(tweet_id=0):
     if tweet_id != 0:
         public_tweets = api.home_timeline(count=200, max_id=tweet_id)
     else:
-        public_tweets = api.home_timeline()
+        public_tweets = api.home_timeline(count=200)
     tweets = [tweet._json for tweet in public_tweets]
-    print(public_tweets)
+    # print(public_tweets)
     return jsonify(tweets=tweets)
+
+
+@bp.route("/like/<int:tweet_id>", methods=["GET"])
+def likeTweet(tweet_id):
+    try:
+        api.create_favorite(tweet_id)
+        return jsonify(True), 200
+    except:
+        return jsonify("Bad Credentials"), 401
+
+
+@bp.route("/like/remove/<int:tweet_id>", methods=["GET"])
+def unlikeTweet(tweet_id):
+    try:
+        api.destroy_favorite(tweet_id)
+        return jsonify(True), 200
+    except:
+        return jsonify("Bad Credentials"), 401
 
 
 app.register_blueprint(bp, url_prefix='/api')
