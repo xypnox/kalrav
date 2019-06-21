@@ -10,7 +10,7 @@ function Navbar(props) {
   const linkList =
     user !== null
       ? [
-          <li className='appName' key={0}>
+          <li className='appName' key={0} onClick={props.clickFunc}>
             <Link to='/feed'>Kalrav</Link>
           </li>,
           <li key={1}>

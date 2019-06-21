@@ -46,6 +46,13 @@ class Feed extends Component {
     }
   };
 
+  refreshTweets = () => {
+    localStorage.setItem('tweets', null);
+    console.log('Refreshing Tweets');
+
+    this.fetchTweets();
+  };
+
   componentDidMount() {
     this.fetchTweets();
   }
@@ -68,6 +75,7 @@ class Feed extends Component {
         <div className='feed container'>
           <Navbar
             user={this.props.user}
+            clickFunc={this.refreshTweets}
             logoutUser={this.props.logoutUser}
             history={this.props.history}
           />
