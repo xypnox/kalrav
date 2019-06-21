@@ -67,7 +67,7 @@ class Tweet extends Component {
       <div />
     );
     if (tweet.entities.media) {
-      tweetContent = tweet.text.subString(0, tweet.text.length - 23);
+      tweetContent = tweet.text.substring(0, tweet.text.length - 23);
     }
     const likeClass = this.state.isLiked ? 'isLiked' : '';
     const replyClass = this.state.showReply ? 'isReply' : '';

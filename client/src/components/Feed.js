@@ -14,11 +14,12 @@ class Feed extends Component {
     };
   }
 
-  fetchTweets = (getNew = false) => {
+  fetchTweets = tweet_id => {
     let tweets = JSON.parse(localStorage.getItem('tweets'));
 
-    if (getNew) {
-      fetch('/api/tweets')
+    if (tweet_id) {
+      console.log('New tweets incoming!');
+      fetch(`/api/tweets${tweet_id}`)
         .then(response => {
           return response.json();
         })
@@ -26,9 +27,21 @@ class Feed extends Component {
         .finally();
     } else {
       if (tweets) {
+        console.log('Restoring Tweets');
         this.setState({
           tweets: tweets
         });
+      } else {
+        console.log('Getting fresh tweets');
+        fetch('/api/tweets')
+          .then(response => {
+            return response.json();
+          })
+          .then(data => {
+            this.setState({ tweets: data.tweets });
+            localStorage.setItem('tweets', JSON.stringify(data.tweets));
+          })
+          .finally();
       }
     }
   };
