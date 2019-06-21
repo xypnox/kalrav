@@ -136,6 +136,24 @@ def tweets_by_Id(tweet_id=0):
     return jsonify(tweets=tweets)
 
 
+@bp.route("/like/<int:tweet_id>", methods=["GET"])
+def likeTweet(tweet_id):
+    try:
+        api.create_favorite(tweet_id)
+        return jsonify(True), 200
+    except:
+        return jsonify("Bad Credentials"), 401
+
+
+@bp.route("/like/remove/<int:tweet_id>", methods=["GET"])
+def unlikeTweet(tweet_id):
+    try:
+        api.destroy_favorite(tweet_id)
+        return jsonify(True), 200
+    except:
+        return jsonify("Bad Credentials"), 401
+
+
 app.register_blueprint(bp, url_prefix='/api')
 
 
