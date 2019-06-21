@@ -12,6 +12,7 @@ switch:
 		git merge master --no-edit
 
 freeze:
+		. env/bin/activate
 		rm -f requirements.txt
 		pip freeze | grep -v "pkg-resources" > requirements.txt
 
