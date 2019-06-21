@@ -18,9 +18,18 @@ else:
                 static_url_path='',
                 static_folder='../client/build')
 
+    @app.route('/', defaults={'path': ''})
+    @app.route('/<path:path>')
     @app.route('/')
     def root():
         return app.send_static_file('index.html')
+
+
+@app.route('/api/', defaults={'path': ''})
+@app.route('/api/<path:path>')
+def catch_all(path):
+    return 'You want path: %s' % path
+
 
 # Check Configuration section for more details
 SESSION_TYPE = 'filesystem'
@@ -115,6 +124,11 @@ def eroorororo():
 @bp.route("/", methods=["GET"])
 def index():
     return jsonify(message="Hello World!"), 200
+
+
+@bp.route("/test", methods=["GET"])
+def test():
+    return jsonify(message=True), 200
 
 
 @bp.route("/tweets", methods=["GET"])
