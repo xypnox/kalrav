@@ -3,6 +3,7 @@ import Linkify from 'react-linkify';
 // import Link from 'react-router-dom';
 import '../styles/Tweet.css';
 import TweetBtn from './TweetBtn';
+import axios from 'axios';
 
 class Tweet extends Component {
   constructor(props) {
@@ -28,12 +29,20 @@ class Tweet extends Component {
 
   handleClickLike = e => {
     if (!this.state.isLiked) {
-      this.setState({
-        isLiked: true
+      axios.get(`/api/like/${this.props.tweet.id_str}`).then(resp => {
+        if (resp.status === 200) {
+          this.setState({
+            isLiked: true
+          });
+        }
       });
     } else {
-      this.setState({
-        isLiked: false
+      axios.get(`/api/like/remove/${this.props.tweet.id_str}`).then(resp => {
+        if (resp.status === 200) {
+          this.setState({
+            isLiked: false
+          });
+        }
       });
     }
   };

@@ -121,7 +121,7 @@ def index():
 def tweets():
     public_tweets = api.home_timeline(count=200)
     tweets = [tweet._json for tweet in public_tweets]
-    print(public_tweets)
+    # print(public_tweets)
     return jsonify(tweets=tweets)
 
 
