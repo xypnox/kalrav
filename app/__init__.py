@@ -25,12 +25,6 @@ else:
         return app.send_static_file('index.html')
 
 
-@app.route('/api/', defaults={'path': ''})
-@app.route('/api/<path:path>')
-def catch_all(path):
-    return 'You want path: %s' % path
-
-
 # Check Configuration section for more details
 SESSION_TYPE = 'filesystem'
 app.config.from_object(__name__)
