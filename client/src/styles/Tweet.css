@@ -12,6 +12,11 @@
   padding: 0.5rem 0;
 }
 
+.Tweet .media img {
+  width: 100%;
+  border-radius: 10px;
+}
+
 .Tweet .tweetActions button {
   background-color: #fff;
   color: #dbdbdb;
@@ -26,7 +31,7 @@
 }
 
 .Tweet .tweetActions button.isLiked {
-  color: #FF364E;
+  color: #ff364e;
 }
 
 .Tweet .tweetActions button.isReply {
@@ -34,9 +39,8 @@
 }
 
 .Tweet .tweetActions button.isRetweet {
-  color: #00D382;
+  color: #00d382;
 }
-
 
 .Tweet .tweetbtn {
   margin: 0.5rem;
